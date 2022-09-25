@@ -1,0 +1,197 @@
+{% extends 'header/base.html' %}
+<!-- Extends header/base.html -->
+{% load static %}
+<!-- Extends static -->
+{% load humanize %}
+<!-- Extends load humanize -->
+{% block content %}
+<!-- Showcase -->
+<section id="showcase">
+  <div class="container text-center">
+    <div class="home-search p-5">
+      <div class="overlay p-5">
+        <h1 class="display-4 mb-4">Property Searching</h1>
+        <div class="search">
+          <form action="{% url 'listing:search' %}">
+            <!-- Form Row 1 -->
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Keywords</label>
+                <input
+                  type="text"
+                  name="keywords"
+                  class="form-control"
+                  placeholder="Keyword (Land, Appartment,House etc)"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input
+                  type="text"
+                  name="city"
+                  class="form-control"
+                  placeholder="City"
+                />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Purchase Type</label>
+                <select name="purchaseType" class="form-control">
+                  <option selected="true" disabled="disabled">Purchase Type (All)</option>
+                  {% for key, value in purchase_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="sr-only">Price</label>
+                <select name="price" class="form-control">
+                  <option selected="true" disabled="disabled">
+                    Max Price (Any)
+                  </option>
+                  {% for key, value in price_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">State</label>
+                <select name="state" class="form-control">
+                  <option selected="true" disabled="disabled">
+                    State (All)
+                  </option>
+                  {% for key, value in state_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Property Type</label>
+                <select name="propertyType" class="form-control">
+                  <option selected="true" disabled="disabled">Property Type (All)</option>
+                  {% for key, value in property_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div
+            </div>
+
+            <button class="btn btn-secondary btn-block mt-4" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Listings -->
+<section id="listings" class="py-5">
+  <div class="container">
+    <h3 class="text-center mb-3">Latest Listings</h3>
+    <div class="row">
+      {% if listings %} {% for listing in listings %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <img
+            class="card-img-top"
+            height="200"
+            src="{{ listing.photo_main.url }}"
+            alt=""
+          />
+          <div class="card-img-overlay">
+            <h2>
+              <span class="badge badge-secondary text-white"
+                >Rs.{{ listing.price | floatformat:0 | intcomma }}</span
+              >
+            </h2>
+          </div>
+          <div class="card-body">
+            <div class="listing-heading text-center">
+              <h4 class="text-primary">{{ listing.listing_title }}</h4>
+              <p>
+                <i class="fas fa-map-marker text-secondary"></i>
+                {{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}
+              </p>
+            </div>
+            <hr />
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}
+              </div>
+              <div class="col-6">
+                <i class="fas fa-car"></i> Garage: {{ listing.garage }}
+              </div>
+            </div>
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedroom }}
+              </div>
+              <div class="col-6">
+                <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathroom }}
+              </div>
+            </div>
+            <hr />
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-user"></i> {{ listing.realtor_id }}
+              </div>
+            </div>
+            <div class="row text-secondary pb-2">
+              <div class="col-6">
+                <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+        <a
+              href="{% url 'listing:detail' listing.listing_id %}"
+              class="btn btn-primary btn-block"
+              >More Info</a
+            >
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+  </div>
+</section>
+
+<section id="services" class="py-5 bg-secondary text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <i class="fas fa-comment fa-4x mr-4"></i>
+        <hr />
+        <h3>Consulting Services</h3>
+        <p>
+          We provide expert advice and recommendations to clients looking to
+          purchase or develop property.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <i class="fas fa-home fa-4x mr-4"></i>
+        <hr />
+        <h3>Propery Management</h3>
+        <p>
+          We provide client with upto date properties and recommend them for the
+          best purchase.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <i class="fas fa-suitcase fa-4x mr-4"></i>
+        <hr />
+        <h3>Renting & Selling</h3>
+        <p>
+          We provide client with the selection of realestate properties for both
+          buying or renting purposes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

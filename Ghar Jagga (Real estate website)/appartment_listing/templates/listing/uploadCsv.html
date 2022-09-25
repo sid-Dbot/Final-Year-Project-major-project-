@@ -1,0 +1,26 @@
+{% extends 'header/base.html' %}
+<!---->
+{% load static %}
+<!---->
+{% load humanize %}
+<!---->
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div>
+            <strong{{message|safe}}></strong>
+        </div>
+    {% endfor %}
+{% else %} 
+{{order}}
+<div class="w-full max-w-4xl pt-8 pl-8 pb-40">
+    <form method="post" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        {%  csrf_token %}
+        
+        <p class="block text-gray-700 text-4xl font-bold mb-2">Scrape Data from REAL ESTATE IN NEPAL site </p>
+        <button type="submit" class=" bg-teal-600 hover:bg-teal-900 text-xl text-white font-bold py-3 px-5 rounded focus:outline-none focus:shadow-outline">Scrape Data to the Database</button>
+    </form>
+</div>
+{% endif %}
+{% endblock %}
