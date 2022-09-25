@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ykv#s77^r$==k&z_ts0u66j*526m94*ltlgn4oock#6+$&f2$4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+
+]
 
 
 # Application definition
@@ -148,8 +150,3 @@ MESSAGE_TAGS = {
 }
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '654'
-EMAIL_HOST_USER = 'demoemail@gmail.com'
-EMAIL_HOST_PASSWORD = 'demo11234'
-EMAIL_USE_TLS = True
