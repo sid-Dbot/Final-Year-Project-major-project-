@@ -26,7 +26,7 @@ def index(request):
 
 
 def about(request):
-    title = 'Real Estate Hunt Nepal | About'
+    title = 'Ghar Jagga Nepal | About'
     template = 'main/about.html'
     mvp = Realtors.objects.all().filter(is_mvp=True)
     realtors = Realtors.objects.all().order_by('-hire_date')
