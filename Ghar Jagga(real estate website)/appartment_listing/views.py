@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import permission_required
 
 
 def index(request):
-    title = 'Real Estate Hunt Nepal | Listing'
+    title = 'Ghar Jagga Nepal | Listing'
     template = 'listing/index.html'
 
     # Order & Filter the context for the listing page.
@@ -185,9 +185,9 @@ def csv_upload(request):
             'https://www.realestateinnepal.com/search/?location=', headers=headers)
         soup = BeautifulSoup(r.content, 'html.parser')
         con = get_object_or_404(Contact)
-        subject = 'Real Estate Hunt Nepal Notification'
+        subject = 'Ghar Jagga Nepal Notification'
         message = 'The price of the properties on Advance have been updated. Please check out our latest prices. '
-        from_email = 'REAL ESTATE HUNT NEPAL'
+        from_email = 'Ghar Jagga NEPAL'
         to_email = con.contact_mail
         send_mail(
             subject,
@@ -222,10 +222,10 @@ def csv_upload(request):
 def notify(request):
     template = 'listing/uploadCsv.html'
     con = get_object_or_404(Contact)
-    subject = 'Real Estate Hunt Nepal Notification'
+    subject = 'Ghar Jagga Nepal'
     message = 'Your submission on the property of message('+con.contact_message + \
         ') has been submitted sucessfully. You will be notified about this property.'
-    from_email = 'REAL ESTATE HUNT NEPAL'
+    from_email = 'Ghar Jagga NEPAL'
     to_email = con.contact_mail
     send_mail(
         subject,
